@@ -1,0 +1,9 @@
+.text-Des{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* a rechercheer */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;/* nbr line a afichher */
+    -webkit-box-orient: vertical;
+    
+}
