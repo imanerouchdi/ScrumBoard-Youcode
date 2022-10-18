@@ -9,6 +9,14 @@ function createTask() {
     // Afficher le boutton save
 
     // Ouvrir modal form
+
+
+
+
+
+
+
+
     
 }
 
@@ -20,6 +28,21 @@ function saveTask() {
     // Ajoutez object au Array
 
     // refresh tasks
+    //id form=Model
+   // console.log("imane");
+   //let tasks[];
+//    const saveTask=(ev)=>{// a rrow function
+    // ev.preventDefault();
+    let task={
+        'title'         :   document.getElementById("titre").value,
+        'type'          :   document.getElementById("type").value,
+        'priority'      :   document.getElementById("Priority").value,
+        'status'        :   document.getElementById("Status").value,
+        'date'          :   document.getElementById("Date").value,
+        'description'   :   document.getElementById("desc").value
+    }
+    tasks[tasks.lenght](task);
+    console.log(tasks);
     
 }
 
