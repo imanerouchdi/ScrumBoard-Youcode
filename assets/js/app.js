@@ -2,11 +2,12 @@
  * In this file app.js you will find all CRUD functions name.
  * 
  */
-// afficher html+function affichage
+
 
 let todotask=document.getElementById("to-do-tasks");
 let inprogress=document.getElementById("in-progress-tasks");
 let done= document.getElementById("done-tasks");
+
 const typeInput = document.getElementsByName("type");
 let titre=document.getElementById("titre");
 let type=document.getElementsByName("type");
@@ -14,164 +15,98 @@ let priority=document.getElementById("Priority")
 let status=document.getElementById("Status");
 let date =document.getElementById("Date");
 let description=document.getElementById("desc");
-let form=document.getElementById("form");
+
+indexTasks=-1;
 
 reloadTasks();
 
 //afficher data
-function createTask() {
-    todotask.innerHTML="";
-    inprogress="";
-    done="";
-    tasks.forEach(task => {
-        if(task.status==="To Do"){
-            todotask.innerHTML+=`<button class="d-flex button border w-100 p-1 p-1"> 
-            <div class="col-md-1">
-                <i class="bi bi-question-circle text-success"></i>
-            </div>
-            <div class="text-start col-md-11 ">
-                <div class="fw-bold">${task.titre}</div>
-                <div class="text ">
-                    <div class="text text-muted">${task.date}</div>
-                    <div class="text-Des" title="${task.description}">${task.description}
+function reloadTasks() {
+    let cmpToDo=0,cmpInProgress=0,cmpDone=0;
+    // let cmp=0;
+    let show;
+    let icons="";
+        tasks.forEach ((task,cmp) => {
+        if(task.status=="To Do"){
+            show=document.getElementById("to-do-tasks");
+            icons="fa-regular fa-circle-question fa-lg pt-2 text-success";
+            cmpToDo++;
+        }
+        else if(task.status== "In Progress"){
+            show=document.getElementById("in-progress-tasks");
+            icons="fa fa-circle-notch fa-lg pt-2 text-success";
+            cmpInProgress++;
+        }
+        else if(task.status== "Done" ){
+            show=document.getElementById("done-tasks");
+            icons="fa-regular fa-circle-check fa-lg pt-2 text-success";
+            cmpDone++;
+        }
+        document.getElementById("to-do-tasks-count").innerHTML=cmpToDo;
+        document.getElementById("in-progress-tasks-count").innerHTML=cmpInProgress;
+        document.getElementById("done-tasks-count").innerHTML=cmpDone;
+        
+            show.innerHTML += `
+            <button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Model" onclick="editTask()">
+                <div class="col-sm-1 pe-2">
+                    <i class="${icons}"></i> 
+                </div>
+                <div class="col-sm-11 text-start">
+                    <div class="fw-bolder">${task.title}</div>
+                    <div class="">
+                        <div class="">#${cmp+1} created in ${task.date}</div>
+                        <div class="text-Des" title="${task.description}">${task.description}</div>
+                    </div>
+                    <div class="">
+                        <span class="btn btn-primary btn-sm">${task.priority}</span>
+                        <span class="btn bg-light-600 btn-sm">${task.type}</span>
                     </div>
                 </div>
-                <div class="my-10px">
-                    <span class="btn btn-primary">${task.priority}</span>
-                    <span class="btn btn-gray-500 text-black">${task.type}</span>
-                </div>
-            </div>
-        </button>
-        `
-        }
-        else if (task.status === "In Progress") {
-            inProgress.innerHTML += `<button class="bg-white w-100 border-0 border-top d-flex py-2 ">
-            <div class="px-2 ">
-                <i class="bi bi-question-circle text-success fs-3 "></i> 
-            </div>
-            <div class="text-start ">
-                <div class="h6 ">${task.titre}</div>
-                <div class="text-start ">
-                    <div class="text-gray ">#1 created in 2022-10-08</div>
-                    <div title="${task.description}"> ${task.description}</div>
-                </div>
-                <div class=" ">
-                    <span class="btn btn-primary ">High</span>
-                    <span class="btn btn-light text-black ">Feature</span>
-                </div>
-            </div>
-        </button>`
-        } else if (task.status === "Done") {
-            doneTask.innerHTML += `<button class="bg-white w-100 border-0 border-top d-flex py-2 ">
-            <div class="px-2 ">
-                <i class="bi bi-question-circle text-success fs-3 "></i> 
-            </div>
-            <div class="text-start ">
-                <div class="h6 ">${task.title}</div>
-                <div class="text-start ">
-                    <div class="text-gray ">#1 created in 2022-10-08</div>
-                    <div title="${task.description}"> ${task.description}</div>
-                </div>
-                <div class=" ">
-                    <span class="btn btn-primary ">High</span>
-                    <span class="btn btn-light text-black ">Feature</span>
-                </div>
-            </div>
-        </button>`
-        }
-    });
-        
-        
+        </button>`;
+         });;
         
         
 
-}   
-function reloadTasks() {
-    let cmp=0;
-
-    // Remove tasks elements
-
-    // Set Task count
-     todotask.innerHTML="";
-     inprogress.innerHTML="";
-     done.innerHTML="";
-     
-        for(let i=0 ;i<tasks.length;i++) {
-        if(tasks[i].status ==="To Do"){
-            todotask.innerHTML +=`<button class="bg-white w-100 border-0 border-top d-flex py-2 ">
-            <div class="px-2 ">
-                <i class="bi bi-question-circle text-success fs-3 "></i> 
-            </div>
-            <div class="text-start ">
-                <div class="h6 ">${tasks[i].title}</div>
-                <div class="text-start ">
-                    <div class="text-gray "># ${cmp+1} ${tasks[i].date}</div>
-                    <div title="${tasks[i].description}"> ${tasks[i].description}</div>
-                </div>
-                <div class=" ">
-                    <span class="btn btn-primary ">${tasks[i].priority}</span>
-                    <span class="btn btn-light text-black ">${tasks[i].type}</span>
-                </div>
-            </div>
-        </button>
-            `;
-        }
-        else if(tasks[i].status === "In Progress"){
-            inprogress.innerHTML+=`<button class="bg-white w-100 border-0 border-top d-flex py-2 ">
-            <div class="px-2 ">
-                <i class="bi bi-question-circle text-success fs-3 "></i> 
-            </div>
-            <div class="text-start ">
-                <div class="h6 ">${tasks[i].title}</div>
-                <div class="text-start ">
-                    <div class="text-gray "># ${cmp} ${tasks[i].date}</div>
-                    <div title="${tasks[i].description}"> ${tasks[i].description}</div>
-                </div>
-                <div class=" ">
-                    <span class="btn btn-primary ">${tasks[i].priority}</span>
-                    <span class="btn btn-light text-black ">${tasks[i].type}</span>
-                </div>
-            </div>
-        </button>
-        `;
-        }
-        else if(tasks[i].status === "Done" ){
-            done.innerHTML += 
-            `<button class="bg-white w-100 border-0 border-top d-flex py-2 ">
-            <div class="px-2 ">
-                <i class="bi bi-question-circle text-success fs-3 "></i> 
-            </div>
-            <div class="text-start ">
-                <div class="h6 ">${tasks[i].title}</div>
-                <div class="text-start ">
-                    <div class="text-gray "># ${ cmp} ${tasks[i].date}</div>
-                    <div title="${tasks.description}"> ${tasks[i].description}</div>
-                </div>
-                <div class=" ">
-                    <span class="btn btn-primary ">${tasks[i].type}</span>
-                    <span class="btn btn-light text-black ">${tasks[i].priority}</span>
-                </div>
-            </div>
-        </button>
-        `;
-        }
-        cmp++;
-        };
      
 }
+
+// .addEventListener("click",createTask);
+createTask();
+function createTask() {
+    document.getElementById("buttonAddTask").onclick=()=>{
+        initTaskForm();
+      };    
+}   
+saveTask();
 function saveTask() {
-    let formtask = document.getElementById("form");
-    let task = {
-        'title'         : formtask.titre.value, // document.getElementById("titre"),
-        'type'          : formtask.type.value,  //document.getElementsByName("type"),
-        'priority'      :  form.priority.value,// document.getElementById("Priority"),
-        'status'        :  form.status.value,// document.getElementById("Status"),
-        'date'          :  form.data.value, //document.getElementById("Date"),
-        'description'   :  form.description.value //document.getElementById("desc")
-    };
-    tasks.push;
-    console.log(tasks);
-    reloadTasks();
+    // let formtask = document.getElementById("form");
+    let btnSave=document.getElementById("save");
+    let btnCancel=document.getElementById("cancel");
+    btnSave.onclick=()=>{
+        for(let i in type){
+            if(typeTask[i].checked == 1)   type=typeTask[i].value;
+        }
+        if(titre.value!="" && date.value!=""&& description.value!=""){
+            messageError.innerHTML="";
+            let task = {
+        'title'         :  document.getElementById("titre").value,
+        'type'          :  document.getElementsByName("type").value,
+        'priority'      :  document.getElementById("Priority").value,
+        'status'        :  document.getElementById("Status").value,
+        'date'          :  document.getElementById("Date").value,
+        'description'   :  document.getElementById("desc").value,
+            }
+        tasks.push(task);
+        // actualise tasks
+        reloadTasks();
+        btnCancel.click();
+        }else{
+            messageError.innerHTML="<h4>Veuillez remplir les champs SVP !!</h4>"
+        }
+    }
+        
+        console.log(tasks);
+        // reloadTasks();
 }
 function editTask(index) {
     // Initialisez task form
@@ -186,7 +121,7 @@ function editTask(index) {
 
     // Ouvrir Modal form
     //afficher data
-    let afficheData=document.querySelector(".tasks");
+   
 
 
 }
@@ -213,6 +148,13 @@ function deleteTask() {
 }
 function initTaskForm() {
     // Clear task form from data
-
+    document.getElementById("form").reset();
     // Hide all action buttons
 }
+// function reloadTasks(){
+//     // remove tasks element 
+//     todotask.innerHTML="";
+//     inprogress.innerHTML="";
+//     done.innerHTML="";
+//     reloadTasks();
+// }

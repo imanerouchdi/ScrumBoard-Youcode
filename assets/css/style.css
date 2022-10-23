@@ -8,3 +8,12 @@
     background-size: 360px;
     background-position: right bottom;
 }
+.text-Des{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;/* nbr line a afichher */
+    -webkit-box-orient: vertical;
+    
+    
+}
