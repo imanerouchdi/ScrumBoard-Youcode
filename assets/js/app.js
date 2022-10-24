@@ -18,7 +18,9 @@ let description=document.getElementById("desc");
 let typetask=document.querySelector("input[name='type']:checked");
 let index;
 let nombre;
-
+let typeFeature = document.getElementById("feature");
+let typeBug = document.getElementById("bug");
+let newTypeTask;
 reloadTasks();
 
 //afficher data
@@ -52,7 +54,7 @@ function reloadTasks() {
         document.getElementById("done-tasks-count").innerHTML=cmpDone;
 
             show.innerHTML += `
-            <button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
+            <button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask(${cmp}) ">
                 <div class="col-sm-1 pe-2">
                     <i class="${icons}"></i>
                 </div>
@@ -104,51 +106,81 @@ function saveTask() {
         }
         reloadTasks();
 }
-function editTask(index) {
-    // $('.model').show();
-    // Initialisez task form
-    
-    // Affichez updates
 
+let buttonClickedIndex;
+function editTask(index) {
+    buttonClickedIndex = index;
+    // Initialisez task form
+     initTaskForm();
+    // Affichez updates
+    nombre=index;
+    titre.value=tasks[index].title;
+    priority.value=tasks[index].priority;
+    description.value=tasks[index].description;
+    date.value=tasks[index].date;
+    statu.value=tasks[index].status;
+    if(tasks[index].type=="Feature"){
+        typeFeature.checked=true;
+        typeBug.checked=false;
+    } 
+    else{
+        typeFeature.checked=false;
+        typeBug.checked=true;
+    } 
     // Delete Button
-    
+       // document.querySelector("#delete").style.display="block";
+
     // Définir l’index en entrée cachée pour l’utiliser en Update et Delete
 
     // Definir FORM INPUTS
 
     // Ouvrir Modal form
     //afficher data
-    initTaskForm();
         // document.querySelector("#save").style.display="none";
-        //document.querySelector("#delete").style.display="block";
-        document.querySelector("update").style.display="block";
-        nombre=index;
-
-
-
-
-
+        document.getElementById("save").style.display="none";
+    
 }
 function updateTask() {
+    // tasks[buttonClickedIndex].title = titre.value;
+    if(feature.checked){
+        newTypeTask="Feature";
+    }else{
+        newTypeTask="Bug";
+    }
     // GET TASK ATTRIBUTES FROM INPUTS
 
     // Créez task object
-
+    let newTask={
+        'title' : titre.value,
+        'type' : newTypeTask,
+        'priority':priority.value,
+        'status' :statu.value,
+        'date':date.value,
+        'description' :description.value,
+    }
     // Remplacer ancienne task par nouvelle task
-
+    tasks[buttonClickedIndex]=newTask;
+    // tasks[buttonClickedIndex].title=titre.value;
+    // tasks[buttonClickedIndex].type=newTypeTask;
+    // tasks[buttonClickedIndex].priority=priority.value;
+    // tasks[buttonClickedIndex].statu=statu.value;
+    // tasks[buttonClickedIndex].date=date.value;
+    // tasks[buttonClickedIndex].description=titre.description;
     // Fermer Modal form
-
+    document.getElementById("cancel").click();
     // Refresh tasks
+    reloadTasks();
 
 }
 function deleteTask() {
     // Get index of task in the array
-        document.getElementById("delete")
+    tasks.splice(buttonClickedIndex,1);
     // Remove task from array by index splice function
 
     // close modal form
-
+    document.getElementById("cancel").click();
     // refresh tasks
+    reloadTasks();
 }
 function initTaskForm() {
     // Clear task form from data
