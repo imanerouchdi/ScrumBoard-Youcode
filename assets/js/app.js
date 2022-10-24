@@ -1,6 +1,6 @@
 /**
  * In this file app.js you will find all CRUD functions name.
- * 
+ *
  */
 
 
@@ -12,11 +12,12 @@ const typeInput = document.getElementsByName("type");
 let titre=document.getElementById("titre");
 let type=document.getElementsByName("type");
 let priority=document.getElementById("Priority")
-let status=document.getElementById("Status");
+let statu=document.getElementById("Status");
 let date =document.getElementById("Date");
 let description=document.getElementById("desc");
-
-indexTasks=-1;
+let typetask=document.querySelector("input[name='type']:checked");
+let index;
+let nombre;
 
 reloadTasks();
 
@@ -26,9 +27,13 @@ function reloadTasks() {
     // let cmp=0;
     let show;
     let icons="";
+    // remove tasks element
+    todotask.innerHTML="";
+    inprogress.innerHTML="";
+    done.innerHTML="";
         tasks.forEach ((task,cmp) => {
         if(task.status=="To Do"){
-            show=document.getElementById("to-do-tasks");
+            show=document.getElementById("to-do-tasks")
             icons="fa-regular fa-circle-question fa-lg pt-2 text-success";
             cmpToDo++;
         }
@@ -45,11 +50,11 @@ function reloadTasks() {
         document.getElementById("to-do-tasks-count").innerHTML=cmpToDo;
         document.getElementById("in-progress-tasks-count").innerHTML=cmpInProgress;
         document.getElementById("done-tasks-count").innerHTML=cmpDone;
-        
+
             show.innerHTML += `
-            <button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Model" onclick="editTask()">
+            <button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
                 <div class="col-sm-1 pe-2">
-                    <i class="${icons}"></i> 
+                    <i class="${icons}"></i>
                 </div>
                 <div class="col-sm-11 text-start">
                     <div class="fw-bolder">${task.title}</div>
@@ -64,64 +69,63 @@ function reloadTasks() {
                 </div>
         </button>`;
          });;
-        
-        
-
-     
 }
-
-// .addEventListener("click",createTask);
-createTask();
 function createTask() {
-    document.getElementById("buttonAddTask").onclick=()=>{
         initTaskForm();
-      };    
-}   
-saveTask();
+        document.getElementById("update").style.display="none";
+        document.getElementById("delete").style.display="none";
+
+    
+}
 function saveTask() {
-    // let formtask = document.getElementById("form");
-    let btnSave=document.getElementById("save");
-    let btnCancel=document.getElementById("cancel");
-    btnSave.onclick=()=>{
-        for(let i in type){
-            if(typeTask[i].checked == 1)   type=typeTask[i].value;
-        }
-        if(titre.value!="" && date.value!=""&& description.value!=""){
-            messageError.innerHTML="";
-            let task = {
-        'title'         :  document.getElementById("titre").value,
-        'type'          :  document.getElementsByName("type").value,
-        'priority'      :  document.getElementById("Priority").value,
-        'status'        :  document.getElementById("Status").value,
-        'date'          :  document.getElementById("Date").value,
-        'description'   :  document.getElementById("desc").value,
-            }
-        tasks.push(task);
-        // actualise tasks
-        reloadTasks();
-        btnCancel.click();
-        }else{
+    // verifecation cheched radio
+   
+    let featureOrBug;
+    if(feature.checked)  featureOrBug = "feature";
+    else featureOrBug = "Bug";
+    // empty input 
+        if(titre.value=="" || date.value==""|| description.value==""){
             messageError.innerHTML="<h4>Veuillez remplir les champs SVP !!</h4>"
+
+        }else{
+            let task = {
+                'title'         :  document.getElementById("titre").value,
+                'type'          :  featureOrBug,
+                'priority'      :  document.getElementById("Priority").value,
+                'status'        :  document.getElementById("Status").value,
+                'date'          :  document.getElementById("Date").value,
+                'description'   :  document.getElementById("desc").value,
+                    }
+            console.log(typetask);
+             tasks.push(task);
+             console.log(tasks);
+             document.querySelector(".btn-close").click();
+
         }
-    }
-        
-        console.log(tasks);
-        // reloadTasks();
+        reloadTasks();
 }
 function editTask(index) {
+    // $('.model').show();
     // Initialisez task form
-
+    
     // Affichez updates
 
     // Delete Button
-
+    
     // Définir l’index en entrée cachée pour l’utiliser en Update et Delete
 
     // Definir FORM INPUTS
 
     // Ouvrir Modal form
     //afficher data
-   
+    initTaskForm();
+        // document.querySelector("#save").style.display="none";
+        //document.querySelector("#delete").style.display="block";
+        document.querySelector("update").style.display="block";
+        nombre=index;
+
+
+
 
 
 }
@@ -135,11 +139,11 @@ function updateTask() {
     // Fermer Modal form
 
     // Refresh tasks
-    
+
 }
 function deleteTask() {
     // Get index of task in the array
-
+        document.getElementById("delete")
     // Remove task from array by index splice function
 
     // close modal form
@@ -150,11 +154,6 @@ function initTaskForm() {
     // Clear task form from data
     document.getElementById("form").reset();
     // Hide all action buttons
+     messageError.innerHTML="";
 }
-// function reloadTasks(){
-//     // remove tasks element 
-//     todotask.innerHTML="";
-//     inprogress.innerHTML="";
-//     done.innerHTML="";
-//     reloadTasks();
-// }
+
