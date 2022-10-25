@@ -4,18 +4,17 @@
  */
 
 
-let todotask=document.getElementById("to-do-tasks");
-let inprogress=document.getElementById("in-progress-tasks");
+let todoTask=document.getElementById("to-do-tasks");
+let inProgress=document.getElementById("in-progress-tasks");
 let done= document.getElementById("done-tasks");
 
-const typeInput = document.getElementsByName("type");
 let titre=document.getElementById("titre");
 let type=document.getElementsByName("type");
 let priority=document.getElementById("Priority")
 let statu=document.getElementById("Status");
 let date =document.getElementById("Date");
 let description=document.getElementById("desc");
-let typetask=document.querySelector("input[name='type']:checked");
+let typeTask=document.querySelector("input[name='type']:checked");
 let index;
 let nombre;
 let typeFeature = document.getElementById("feature");
@@ -30,8 +29,8 @@ function reloadTasks() {
     let show;
     let icons="";
     // remove tasks element
-    todotask.innerHTML="";
-    inprogress.innerHTML="";
+    todoTask.innerHTML="";
+    inProgress.innerHTML="";
     done.innerHTML="";
         tasks.forEach ((task,cmp) => {
         if(task.status=="To Do"){
@@ -49,6 +48,7 @@ function reloadTasks() {
             icons="fa-regular fa-circle-check fa-lg pt-2 text-success";
             cmpDone++;
         }
+        // ajouter les compteur
         document.getElementById("to-do-tasks-count").innerHTML=cmpToDo;
         document.getElementById("in-progress-tasks-count").innerHTML=cmpInProgress;
         document.getElementById("done-tasks-count").innerHTML=cmpDone;
@@ -74,14 +74,15 @@ function reloadTasks() {
 }
 function createTask() {
         initTaskForm();
-        document.getElementById("update").style.display="none";
-        document.getElementById("delete").style.display="none";
-
+        
+    document.querySelector("#update").style.display= "none";
+    document.querySelector("#delete").style.display= "none";
+        
     
 }
 function saveTask() {
     // verifecation cheched radio
-   
+
     let featureOrBug;
     if(feature.checked)  featureOrBug = "feature";
     else featureOrBug = "Bug";
@@ -138,6 +139,9 @@ function editTask(index) {
     //afficher data
         // document.querySelector("#save").style.display="none";
         document.getElementById("save").style.display="none";
+        
+    document.querySelector("#update").style.display= "";
+    document.querySelector("#delete").style.display= "";
     
 }
 function updateTask() {
@@ -160,13 +164,6 @@ function updateTask() {
     }
     // Remplacer ancienne task par nouvelle task
     tasks[buttonClickedIndex]=newTask;
-    // tasks[buttonClickedIndex].title=titre.value;
-    // tasks[buttonClickedIndex].type=newTypeTask;
-    // tasks[buttonClickedIndex].priority=priority.value;
-    // tasks[buttonClickedIndex].statu=statu.value;
-    // tasks[buttonClickedIndex].date=date.value;
-    // tasks[buttonClickedIndex].description=titre.description;
-    // Fermer Modal form
     document.getElementById("cancel").click();
     // Refresh tasks
     reloadTasks();
@@ -174,7 +171,7 @@ function updateTask() {
 }
 function deleteTask() {
     // Get index of task in the array
-    tasks.splice(buttonClickedIndex,1);
+    tasks.splice(buttonClickedIndex,2);// splice : une methode d'objet qui supprimer les element objet
     // Remove task from array by index splice function
 
     // close modal form
