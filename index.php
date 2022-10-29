@@ -1,6 +1,6 @@
 <?php 
 	include('scripts.php');
-	$result = getTasks($conn , "To Do");
+	// $result = getTasks($conn , "Done"); 
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -50,29 +50,27 @@
 							<div class=" card-header bg-dark">
 								<h4 class="text-light mb-0 p-10px">To do (<span id="to-do-tasks-count">5</span>)</h4> 
 							</div> 
-							<div class="d-flex flex-column shadow" id="to-do-tasks" name="task">
+							<div class="d-flex flex-column shadow" id="to-do-tasks" name="to do" >
 								<!-- TO DO TASKS HERE -->
 
-							<?php while($task = mysqli_fetch_assoc($result)){ ?>
-							
-								<button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
-										<div class="col-sm-1 pe-2">
-											<i class="${icons}"></i>
-										</div>
-										<div class="col-sm-11 text-start">
-											<div class="fw-bolder"><?php echo $task["title"] ?></div>
-											<!-- <div class="">
-												<div class="">#${cmp+1} created in ${task.date}</div>
-												<div class="text-Des" title="${task.description}">${task.description}</div>
+								<?php while($task = mysqli_fetch_assoc($result)){ ?>
+									<button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
+											<div class="col-sm-1 pe-2">
+												<i class=<?php $icon?>></i>
 											</div>
-											<div class="">
-												<span class="btn btn-primary btn-sm">${task.priority}</span>
-												<span class="btn bg-light-600 btn-sm">${task.type}</span>
+											<div class="col-sm-11 text-start">
+												<div class="fw-bolder"><?php echo $task["title"] ?></div>
+												<div class="">
+													<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
+													<div class="text-Des" title=""><?php echo $task["description"]?></div>
+												</div>
+												<div class="">
+													<span class="btn btn-primary btn-sm"><?echo $task["priorities"]?></span>
+													<span class="btn bg-light-600 btn-sm"><?echo $task["types"]?></span>
+												</div>
 											</div>
-										</div> -->
-								</button>
-							
-							<?php } ?>
+									</button>
+								<?php } ?>`
 							</div>
 						</div>
 					</div> 
@@ -82,7 +80,25 @@
 							<div class=" card-header bg-dark">
 								<h4 class=" text-light mb-0 p-10px">In Progress (<span id="in-progress-tasks-count">4</span>)</h4>
 							</div>
-							<div class="d-flex flex-column shadow" id="in-progress-tasks">
+							<div class="d-flex flex-column shadow" id="in-progress-tasks" name="In Progress">
+								<?php while($task = mysqli_fetch_assoc($result)){ ?>
+										<button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
+												<div class="col-sm-1 pe-2">
+													<i class=<?php $icon?>></i>
+												</div>
+												<div class="col-sm-11 text-start">
+													<div class="fw-bolder"><?php echo $task["title"] ?></div>
+													<div class="">
+														<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
+														<div class="text-Des" title=""><?php echo $task["description"]?></div>
+													</div>
+													<div class="">
+														<span class="btn btn-primary btn-sm"><?echo $task["priorities"]?></span>
+														<span class="btn bg-light-600 btn-sm"><?echo $task["types"]?></span>
+													</div>
+												</div>
+										</button>
+									<?php } ?>
 							</div>
 						</div>
 					</div>
@@ -92,9 +108,27 @@
 							<div class="card card-header bg-dark">
 								<h4 class="text-light mb-0 p-10px">Done (<span id="done-tasks-count">4</span>)</h4>  
 							</div>
-							<div class="d-flex flex-column shadow" id="done-tasks">
+							<div class="d-flex flex-column shadow" id="done-tasks" name="done">
 								<!-- DONE TASKS HERE -->
-								<button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Model" onclick="editTask() "></button>
+								<?php  $result = getTasks($conn , "Done");  ?>
+								<?php while($task = mysqli_fetch_assoc($result)){ ?>
+								<button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Model" onclick="editTask() ">
+									<div class="col-sm-1 pe-2">
+										<i class=<?php $icon?>></i>
+									</div>
+									<div class="col-sm-11 text-start">
+										<div class="fw-bolder"><?php echo $task["title"] ?></div>
+											<div class="">
+												<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
+												<div class="text-Des" title=""><?php echo $task["description"]?></div>
+											</div>
+											<div class="">
+												<span class="btn btn-primary btn-sm"><?echo $task["priorities"]?></span>
+												<span class="btn bg-light-600 btn-sm"><?echo $task["types"]?></span>
+											</div>
+											</div>
+								</button>
+								<?php } ?>
 							</div>
 						</div>
 					</div>

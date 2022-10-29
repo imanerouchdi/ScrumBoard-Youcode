@@ -9,35 +9,35 @@
     if(isset($_POST['update']))      updateTask();
     if(isset($_POST['delete']))      deleteTask();
     
-    function getTasks($conn , $status)
-    {       include('database.php');
+    function getTasks($conn , $typeStatuses)
+    {       
+       include('database.php');
         mysqli_stat($conn);
         //CODE HERE 
          //SQL SELECT
         //  $typeStatuses = "To Do";
-         $sql="SELECT id_tasks,title, type.name ,priorities.name , statuses.name FROM `tasks` 
-         INNER JOIN type on tasks.id_type=type.id_type 
-         INNER JOIN priorities on tasks.id_priority=priorities.id_priorities 
-         INNER JOIN statuses on tasks.id_status=statuses.id_statuses 
-         WHERE statuses.name='$status'";
-        //  $sql = "SELECT * FROM tasks";
-         $result = mysqli_query($conn, $sql);
-        //  var_dump($result);
-        //  $icon ="";
-        //  if($typeStatuses="To Do"){
-        //     $sql.="statuses.name=to do";
-        //     $icon="fa-regular fa-circle-question fa-lg pt-2 text-success";
-        //  }
-        //  else if($typeStatuses="To Do"){
-        //     $sql.="statuses.name=In Progress";
-        //     $icon="fa fa-circle-notch fa-lg pt-2 text-success";
+         $sql="SELECT id_tasks,title, types.name ,priorities.name , statuses.name,task_datetime, description FROM tasks 
+         INNER JOIN types on tasks.id_type=types.id_type 
+         INNER JOIN priorities on tasks.id_priorities=priorities.id_priorities 
+         INNER JOIN statuses on tasks.id_statuses=statuses.id_statuses 
+         WHERE statuses.name='$typeStatuses'";
+         $result = mysqli_query($conn,$sql);
+          $icon ="";
+         if($typeStatuses="To Do"){
+            $sql.="statuses.name=to do";
+            $icon="fa-regular fa-circle-question fa-lg pt-2 text-success";
+          }
+         else if($typeStatuses="In Progress"){
+            $sql.="statuses.name=In Progress";
+            $icon="fa fa-circle-notch fa-lg pt-2 text-success";
 
-        //  }
-        //  else{  
-        //     $sql.="statuses.name=done";
-        //     $icon="fa-regular fa-circle-check fa-lg pt-2 text-success";
+          }
+         else{  
+            $sql.="statuses.name=done";
+            $icon="fa-regular fa-circle-check fa-lg pt-2 text-success";
 
-        //  }
+         }
+         
          if(mysqli_num_rows($result)>0){
             return $result;
          }     
