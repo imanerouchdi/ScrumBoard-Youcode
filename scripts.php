@@ -24,21 +24,6 @@
          INNER JOIN priorities on tasks.id_priority=priorities.id_priorities 
          INNER JOIN statuses on tasks.id_status=statuses.id_statuses WHERE statuses.name='$typeStatuses'";
          $result = mysqli_query($conn,$sql);
-          // $icon ="";
-        //  if($typeStatuses="To Do"){
-        //     $sql.="statuses.name=to do";
-        //     $icon="fa-regular fa-circle-question fa-lg pt-2 text-success";
-        //   }
-        //  else if($typeStatuses="In Progress"){
-        //     $sql.="statuses.name=In Progress";
-        //     // $icon="fa fa-circle-notch fa-lg pt-2 text-success";
-
-        //   }
-        //  else{  
-        //     $sql.="statuses.name=done";
-        //     $icon="fa-regular fa-circle-check fa-lg pt-2 text-success";
-
-        //  }
          
          if(mysqli_num_rows($result)>0){
             return $result;
