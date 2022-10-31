@@ -1,6 +1,6 @@
 <?php 
 	include('scripts.php');
-	// $result = getTasks($conn , "Done"); 
+	$result = getTasks($conn , "Done"); 
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -52,11 +52,13 @@
 							</div> 
 							<div class="d-flex flex-column shadow" id="to-do-tasks" name="to do" >
 								<!-- TO DO TASKS HERE -->
-
+								
+								<?php  $result = getTasks($conn , "To Do");  ?>
+								
 								<?php while($task = mysqli_fetch_assoc($result)){ ?>
 									<button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
 											<div class="col-sm-1 pe-2">
-												<i class=<?php $icon?>></i>
+												<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
 											</div>
 											<div class="col-sm-11 text-start">
 												<div class="fw-bolder"><?php echo $task["title"] ?></div>
@@ -81,10 +83,11 @@
 								<h4 class=" text-light mb-0 p-10px">In Progress (<span id="in-progress-tasks-count">4</span>)</h4>
 							</div>
 							<div class="d-flex flex-column shadow" id="in-progress-tasks" name="In Progress">
+								<?php  $result = getTasks($conn , "In Progress");  ?>
 								<?php while($task = mysqli_fetch_assoc($result)){ ?>
 										<button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
 												<div class="col-sm-1 pe-2">
-													<i class=<?php $icon?>></i>
+													<i class="fa fa-circle-notch fa-lg pt-2 text-success"></i>
 												</div>
 												<div class="col-sm-11 text-start">
 													<div class="fw-bolder"><?php echo $task["title"] ?></div>
@@ -114,7 +117,7 @@
 								<?php while($task = mysqli_fetch_assoc($result)){ ?>
 								<button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Model" onclick="editTask() ">
 									<div class="col-sm-1 pe-2">
-										<i class=<?php $icon?>></i>
+										<i class="fa-regular fa-circle-check fa-lg pt-2 text-success"></i>
 									</div>
 									<div class="col-sm-11 text-start">
 										<div class="fw-bolder"><?php echo $task["title"] ?></div>
@@ -149,11 +152,11 @@
 						<h5 class="modal-title">Add Task</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<form id="form">
+					<form id="form" method="POST">
 						<div class="modal-body">
 							<div id="messageError" class="text-center text-danger"></div>
-												<div class="mb-3">
-			<label id="title-task" class="col-form-label">Title</label>
+							<div class="mb-3">
+								<label id="title-task" class="col-form-label">Title</label>
 								<input type="text" class="form-control" id="titre" name="titre" required>
 							</div>
 							<div class="mb-3 ">
