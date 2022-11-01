@@ -1,6 +1,6 @@
 <?php 
 	include('scripts.php');
-	$result = getTasks($conn , "Done"); 
+	// $result = getTasks($conn , "Done"); 
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -17,7 +17,7 @@
 	<link href="assets/css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" >
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" >
-	<!-- <link rel="stylesheet" href="style.css"> -->
+	<link rel="stylesheet" href="style.css">
 	<!-- ================== END core-css ================== -->
 </head>
 <body>
@@ -37,13 +37,6 @@
 					<h1 class="page-header "> <!-- mt-10px -->
 						Scrum Board 
 					</h1>
-
-					<?php if($_SESSION){ ?>
-					<div class="alert alert-success" role="alert">
-					<?= $_SESSION["message"] ?>
-					</div>
-					<?php unset($_SESSION["message"]); } ?>
-
 					<!-- END page-header -->
 				</div>
 				<div class="col- float-end"> 
@@ -51,21 +44,42 @@
 						<i class="bi bi-plus"></i> Add Task</button>
 				</div>
 			</div> 
-				<div class="row">
+			<?php if (isset($_SESSION['message'])): ?>
+				<div class="alert alert-green alert-dismissible fade show">
+				<strong>Success!</strong>
+					<?php 
+						echo $_SESSION['message']; 
+						unset($_SESSION['message']);
+					?>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></span>
+				</div>
+			<?php endif ?>
+			<div class="row">
 			        <!--------------------------------------- div 1 ----------------------------------------------->
-					<div class="col-sm-12 col-md-6 col-lg-4   p-2 mb-5  rounded">   
-						<div class="card  ">  
-							<div class=" card-header bg-dark">
-								<h4 class="text-light mb-0 p-10px">To do (<span id="to-do-tasks-count">5</span>)</h4> 
-							</div> 
-							<div class="d-flex flex-column shadow" id="to-do-tasks" name="to do" >
-								<!-- TO DO TASKS HERE -->
-								<?php  $result = getTasks($conn , "To Do");  ?>
+					<div class="col-xl-4 col-lg-6">
+					<div class="panel panel-inverse">
+						<div class="panel-heading">
+							<h4 class="panel-title">To do (<span id="to-do-tasks-count">0</span>)</h4>
+							<div class="panel-heading-btn">
+								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a> -->
+								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a> -->
+								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+								<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
+							</div>
+						</div>
+						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="to-do-tasks">
+							<!-- TO DO TASKS HERE -->
+							<?php
+								//PHP CODE HERE
+								//DATA FROM getTasks() FUNCTION
+								 
+								$resultToDo = getTasks($conn , "To Do");  ?>
 								<?php
-								if (mysqli_num_rows($result) > 0) {
-								while($task = $result->fetch_assoc()){ ?>
-									<a href="update.php?id=<?php echo $task['id'] ?>">
-										<button class="border d-flex py-2 task">
+								if (isset($resultToDo)) {
+									// return $resultToDo;
+								while($task =  mysqli_fetch_assoc($resultToDo)){ ?>
+									<!-- <a href="update.php?id=<?php echo $task['id'] ?>"> -->
+										<button class="border d-flex py-2 task w-100">
 												<div class="col-sm-1 pe-2">
 													<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
 												</div>
@@ -78,26 +92,36 @@
 													<div class="">
 														<span class="btn btn-primary btn-sm"><?php echo $task["priorities_name"]?></span>
 														<span class="btn bg-light-600 btn-sm"><?php echo $task["type_name"]?></span>
-														<a href="scripts.php?id=<?php  echo $task["id"]?>"><span class="btn danger  btn-sm">delete</span></a>
+														<!-- <a href="scripts.php?id=<?php  echo $task["id"]?>"><span class="btn danger  btn-sm">delete</span></a> -->
 													</div>
 												</div>
 										</button>
-									</a>
+									<!-- </a> -->
 								<?php }} ?>
+						</div>
+					</div>
+				</div>
+				    <!-- -------------------------------------div 2 ---------------------------------------------- -->
+					<div class="col-xl-4 col-lg-6">
+					<div class="panel panel-inverse">
+						<div class="panel-heading">
+							<h4 class="panel-title">In Progress (<span id="in-progress-tasks-count">0</span>)</h4>
+							<div class="panel-heading-btn">
+								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a> -->
+								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a> -->
+								<a href="update.php?id=<?php echo $task['id']?>" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
 						</div>
-					</div> 
-				    <!-- -------------------------------------div 2 ---------------------------------------------- -->
-					<div class="col-sm-12 col-md-6 col-lg-4  p-2 mb-5 rounded">
-						<div class="card">
-							<div class=" card-header bg-dark">
-								<h4 class=" text-light mb-0 p-10px">In Progress (<span id="in-progress-tasks-count">4</span>)</h4>
-							</div>
-							<div class="d-flex flex-column shadow" id="in-progress-tasks" name="In Progress">
-								<?php  $result = getTasks($conn , "In Progress");  ?>
-								<?php while($task = mysqli_fetch_assoc($result)){ ?>
-									<a href="update.php?id=<?php echo $task['id'] ?>">
-										<button class="border d-flex py-2 task" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
+						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="in-progress-tasks">
+							<!-- IN PROGRESS TASKS HERE -->
+							<?php
+								$resultInProgress = getTasks($conn , "In Progress"); ?>
+							<?php
+								if (isset($resultInProgress)) {
+									 while($task = mysqli_fetch_assoc($resultInProgress)){ ?>
+									<!-- <a href="update.php?id=<?php echo $task['id'] ?>"> -->
+										<button class="border d-flex py-2 task w-100" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
 												<div class="col-sm-1 pe-2">
 													<i class="fa fa-circle-notch fa-lg pt-2 text-success"></i>
 												</div>
@@ -113,23 +137,33 @@
 													</div>
 												</div>
 										</button>
-									</a>
-									<?php } ?>
-							</div>
+									<!-- </a> -->
+									<?php } }?>
 						</div>
 					</div>
+				</div>
 				 	<!--  -------------------------------------div 3-------------------------------- -->
-				 	<div class="col-sm-12 col-md-6 col-lg-4   p-2 mb-5  rounded">
-						<div class="card"> 
-							<div class="card card-header bg-dark">
-								<h4 class="text-light mb-0 p-10px">Done (<span id="done-tasks-count">4</span>)</h4>  
+				 	<div class="col-xl-4 col-lg-6">
+					<div class="panel panel-inverse">
+						<div class="panel-heading">
+							<h4 class="panel-title">Done (<span id="done-tasks-count">0</span>)</h4>
+							<div class="panel-heading-btn">
+								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a> -->
+								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a> -->
+								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning"><i class="fa fa-minus"></i></a>
+								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-danger"><i class="fa fa-times"></i></a>
 							</div>
-							<div class="d-flex flex-column shadow" id="done-tasks" name="done">
-								<!-- DONE TASKS HERE -->
-								<?php  $result = getTasks($conn , "Done");  ?>
-								<?php while($task = mysqli_fetch_assoc($result)){ ?>
-							
-								<a href="update.php?id=<?php echo $task['id'] ?>" class="">	</a>
+						</div>
+						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="done-tasks">
+							<!-- DONE TASKS HERE -->
+							<?php
+								//PHP CODE HERE
+								//DATA FROM getTasks() FUNCTION  
+								$resultDone = getTasks($conn , "Done");  ?>
+								<?php 
+								if (isset($resultDone)) {
+								 while($task = mysqli_fetch_assoc($resultDone)){ ?>
+								<!-- <a href="update.php?id=<?php echo $task['id'] ?>" class="">	 -->
 									<button class="border d-flex py-2  w-100 task" data-bs-toggle="modal" data-bs-target="#Model" onclick="editTask() ">
 										<div class="col-sm-1 pe-2">
 											<i class="fa-regular fa-circle-check fa-lg pt-2 text-success"></i>
@@ -144,9 +178,24 @@
 													<span class="btn btn-primary btn-sm"><?php echo $task["priorities_name"]?></span>
 													<span class="btn bg-light-600 btn-sm"><?php echo $task["type_name"]?></span>
 												</div>
-												</div>
+											</div>
 									</button>
-								<?php } ?>
+								<!-- </a> -->
+								<?php } }?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+					
+					<div class="col-sm-12 col-md-6 col-lg-4   p-2 mb-5  rounded">
+						<div class="card"> 
+							<div class="card card-header bg-dark">
+								<h4 class="text-light mb-0 p-10px">Done (<span id="done-tasks-count">4</span>)</h4>  
+							</div>
+							<div class="d-flex flex-column shadow" id="done-tasks" name="done">
+								<!-- DONE TASKS HERE -->
+								 ?>
 							</div>
 						</div>
 					</div>
@@ -216,8 +265,8 @@
 						<div class="modal-footer">
 							<button id="cancel" type="button" class="btn btn-light text-black border" data-bs-dismiss="modal">Cancel</button>
 							<button id="save" name="save"  type="submit" class="btn btn-primary" onclick="">Save</button>
-							<button id="update" type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="updateTask()" >Update</button>
-							<button id="delete" type="button" class="btn btn-danger"  data-bs-dismiss="modal" onclick="deleteTask()" >Delete</button>
+							<!-- <button id="update" type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="updateTask()" >Update</button>
+							<button id="delete" type="button" class="btn btn-danger"  data-bs-dismiss="modal" onclick="deleteTask()" >Delete</button> -->
 							<!-- <input type="submit" value="save" name="save" class="btn btn-info"> -->
 						</div>
 					</form>

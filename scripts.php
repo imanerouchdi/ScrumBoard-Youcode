@@ -19,11 +19,13 @@
          $sql="SELECT id,title, type.name type_name ,priorities.name priorities_name, statuses.name statuses_name,task_datetime, description FROM tasks 
          INNER JOIN type on tasks.id_type=type.id_type 
          INNER JOIN priorities on tasks.id_priority=priorities.id_priorities 
-         INNER JOIN statuses on tasks.id_status=statuses.id_statuses WHERE statuses.name='$typeStatuses'";
-         $result = mysqli_query($conn,$sql);
+         INNER JOIN statuses on tasks.id_status=statuses.id_statuses WHERE statuses.name='$typeStatuses' order by id";
+          $result = mysqli_query($conn,$sql);
          if(mysqli_num_rows($result)>0){
+            // return mysqli_query($conn,$sql) ;
             return $result;
-         }     
+         }else{ 
+              echo '<div class="alert alert-warning text-center " role="alert"> There is not Data !!!! </div>'; }
     }
     function saveTask()
     {
@@ -35,10 +37,6 @@
         $status     = $_POST["Status"];
         $date       = $_POST["Date"];
         $description= $_POST["description"];
-
-        // var_dump($status);
-        
-
         //SQL INSERT
         $sql="INSERT INTO `tasks`(`title`, `id_type`, `id_priority`, `id_status`, `task_datetime`, `description`)
                         VALUES ('$title', '$type','$priority','$status','$date','$description')";
@@ -50,12 +48,6 @@
     }
     function EditTask($id){
       include ('database.php');
-          // $title      = $_POST["title"];
-          // $type       = $_POST["type"];
-          // $priority   = $_POST["Priority"];EditTask
-          // $status     = $_POST["Status"];
-          // $date       = $_POST["Date"];
-          // $description= $_POST["description"];
           $sql = "SELECT id,id_status,id_priority,tasks.id_type,title, type.name type_name , priorities.name priorities_name, statuses.name statuses_name,task_datetime, description 
               FROM tasks JOIN type on tasks.id_type=type.id_type 
            INNER JOIN priorities on tasks.id_priority=priorities.id_priorities 
@@ -84,10 +76,6 @@
          `description` = '$description'
          WHERE `tasks`.`id` =$id ";
         $result = mysqli_query($conn,$query);
-
-
-
-
         $_SESSION['message'] = "Task has been updated successfully !";
             header('location: index.php');
            }

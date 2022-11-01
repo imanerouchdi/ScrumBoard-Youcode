@@ -13,7 +13,9 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;/* nbr line a afichher */
-    -webkit-box-orient: vertical;
-    
-    
+    -webkit-box-orient: vertical;   
+}
+a{
+    color: black;
+    text-decoration: none;
 }
