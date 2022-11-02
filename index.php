@@ -1,6 +1,6 @@
 <?php 
 	include('scripts.php');
-	// $result = getTasks($conn , "Done"); 
+	$result = getTasks($conn , "Done"); 
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -61,10 +61,8 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">To do (<span id="to-do-tasks-count">0</span>)</h4>
 							<div class="panel-heading-btn">
-								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a> -->
-								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a> -->
-								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
-								<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
+								<a href="update.php?id=<?php  echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+								<a href="scripts.php?id=<?php echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
 							</div>
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="to-do-tasks">
@@ -78,7 +76,7 @@
 								if (isset($resultToDo)) {
 									// return $resultToDo;
 								while($task =  mysqli_fetch_assoc($resultToDo)){ ?>
-									<!-- <a href="update.php?id=<?php echo $task['id'] ?>"> -->
+									 <a href="update.php?id=<?php echo $task['id'] ?>"> -->
 										<button class="border d-flex py-2 task w-100">
 												<div class="col-sm-1 pe-2">
 													<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
@@ -96,7 +94,7 @@
 													</div>
 												</div>
 										</button>
-									<!-- </a> -->
+									</a>
 								<?php }} ?>
 						</div>
 					</div>
@@ -107,10 +105,9 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">In Progress (<span id="in-progress-tasks-count">0</span>)</h4>
 							<div class="panel-heading-btn">
-								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a> -->
-								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a> -->
-								<a href="update.php?id=<?php echo $task['id']?>" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
-								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+								<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
+							
 							</div>
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="in-progress-tasks">
@@ -121,7 +118,7 @@
 								if (isset($resultInProgress)) {
 									 while($task = mysqli_fetch_assoc($resultInProgress)){ ?>
 									<!-- <a href="update.php?id=<?php echo $task['id'] ?>"> -->
-										<button class="border d-flex py-2 task w-100" data-bs-toggle="modal" data-bs-target="#Modal" onclick="editTask() ">
+										<button class="border d-flex py-2 task w-100" >
 												<div class="col-sm-1 pe-2">
 													<i class="fa fa-circle-notch fa-lg pt-2 text-success"></i>
 												</div>
@@ -148,10 +145,8 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">Done (<span id="done-tasks-count">0</span>)</h4>
 							<div class="panel-heading-btn">
-								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a> -->
-								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a> -->
-								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning"><i class="fa fa-minus"></i></a>
-								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-danger"><i class="fa fa-times"></i></a>
+								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+								<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
 							</div>
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="done-tasks">
@@ -164,7 +159,7 @@
 								if (isset($resultDone)) {
 								 while($task = mysqli_fetch_assoc($resultDone)){ ?>
 								<!-- <a href="update.php?id=<?php echo $task['id'] ?>" class="">	 -->
-									<button class="border d-flex py-2  w-100 task" data-bs-toggle="modal" data-bs-target="#Model" onclick="editTask() ">
+									<button class="border d-flex py-2  w-100 task">
 										<div class="col-sm-1 pe-2">
 											<i class="fa-regular fa-circle-check fa-lg pt-2 text-success"></i>
 										</div>
