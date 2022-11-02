@@ -1,6 +1,6 @@
 <?php 
 	include('scripts.php');
-    $id = $_GET['id'];
+    $id = $_GET['updateId'];
 ?>
     <!DOCTYPE html>
     <html lang="en" >
@@ -28,8 +28,8 @@
 							<div id="messageError" class="text-center text-danger"></div>
 							<div class="mb-3">
                             <?php  $result = EditTask($id)  ;
-                            $task = mysqli_fetch_assoc($result);
-                            var_dump($task);
+                            		$task = mysqli_fetch_assoc($result);
+                            // var_dump($task);
                             ?>
 								<label id="title-task" class="col-form-label">Title</label>
 								<input type="text" class="form-control" id="titre" name="title" required value="<?php echo $task["title"] ?>">

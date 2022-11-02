@@ -12,6 +12,7 @@
     // if(isset($_POST['delete']))      deleteTask();
 
     
+    // $id = $_GET['id'];
     function getTasks($conn , $typeStatuses)
     {   
         mysqli_stat($conn);
@@ -29,6 +30,13 @@
     }
     function saveTask()
     {
+      // if(isset($_POST['save'])){
+      //   $title="";
+      //   // preg_match katha9a9 lina mn form return 1-0
+      //   if(!preg_match()){
+      //     //
+      //   }
+      // }
         include('database.php');
         //CODE HERE
         $title      = $_POST["title"];
@@ -47,6 +55,7 @@
         header('location: index.php');
     }
     function EditTask($id){
+        
       include ('database.php');
           $sql = "SELECT id,id_status,id_priority,tasks.id_type,title, type.name type_name , priorities.name priorities_name, statuses.name statuses_name,task_datetime, description 
               FROM tasks JOIN type on tasks.id_type=type.id_type 
@@ -59,6 +68,7 @@
     }
     function updateTask()
     {
+      
         //SQL UPDATE
         include('database.php');
         //CODE HERE

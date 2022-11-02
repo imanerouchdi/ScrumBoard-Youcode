@@ -61,9 +61,7 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">To do (<span id="to-do-tasks-count">0</span>)</h4>
 							<div class="panel-heading-btn">
-								<a href="update.php?id=<?php  echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
-								<a href="scripts.php?id=<?php echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
-							</div>
+								</div>
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="to-do-tasks">
 							<!-- TO DO TASKS HERE -->
@@ -76,15 +74,18 @@
 								if (isset($resultToDo)) {
 									// return $resultToDo;
 								while($task =  mysqli_fetch_assoc($resultToDo)){ ?>
-									 <a href="update.php?id=<?php echo $task['id'] ?>"> -->
+									 <!-- <a href="update.php?id=<?php echo $task['id'] ?>">  -->
 										<button class="border d-flex py-2 task w-100">
 												<div class="col-sm-1 pe-2">
 													<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
 												</div>
 												<div class="col-sm-11 text-start">
 													<div class="fw-bolder"><?php echo $task["title"] ?></div>
+													<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+													<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
+							
 													<div class="">
-														<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
+														<div class="">created in <?php echo $task["task_datetime"] ?></div>
 														<div class="text-Des" title=""><?php echo $task["description"]?></div>
 													</div>
 													<div class="">
@@ -94,7 +95,7 @@
 													</div>
 												</div>
 										</button>
-									</a>
+									<!-- </a> -->
 								<?php }} ?>
 						</div>
 					</div>
@@ -105,15 +106,16 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">In Progress (<span id="in-progress-tasks-count">0</span>)</h4>
 							<div class="panel-heading-btn">
-								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
-								<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
+								<a href="update.php" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+								<a href="scripts.php" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
 							
 							</div>
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="in-progress-tasks">
 							<!-- IN PROGRESS TASKS HERE -->
 							<?php
-								$resultInProgress = getTasks($conn , "In Progress"); ?>
+								$resultInProgress = getTasks($conn , "In Progress"); 
+								?>
 							<?php
 								if (isset($resultInProgress)) {
 									 while($task = mysqli_fetch_assoc($resultInProgress)){ ?>
@@ -124,6 +126,8 @@
 												</div>
 												<div class="col-sm-11 text-start">
 													<div class="fw-bolder"><?php echo $task["title"] ?></div>
+													<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+													<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
 													<div class="">
 														<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
 														<div class="text-Des" title=""><?php echo $task["description"]?></div>
@@ -145,8 +149,8 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">Done (<span id="done-tasks-count">0</span>)</h4>
 							<div class="panel-heading-btn">
-								<a href="update.php?id=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
-								<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
+								<a href="update.php" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+								<a href="scripts.php" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
 							</div>
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="done-tasks">
@@ -165,6 +169,8 @@
 										</div>
 										<div class="col-sm-11 text-start">
 											<div class="fw-bolder"><?php echo $task["title"] ?></div>
+											<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+											<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
 												<div class="">
 													<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
 													<div class="text-Des" title=""><?php echo $task["description"]?></div>
@@ -254,7 +260,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="desc" class="col-form-label">Description</label>
-								<textarea class="form-control" id="desc" name="description"></textarea>
+								<textarea class="form-control" id="desc" name="description" require></textarea>
 							</div>
 						</div>
 						<div class="modal-footer">
