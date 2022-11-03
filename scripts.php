@@ -31,9 +31,10 @@
             // return mysqli_query($conn,$sql) ;
             return $result;
          }
-          else{ 
-               echo '<div class="alert alert-warning text-center " role="alert"> There is not Data !!!! </div>'; }
-            }
+          // else{ 
+          //      echo '<div class="alert alert-warning text-center " role="alert"> There is not Data !!!! </div>'; }
+          //   }
+    }
     function saveTask()
     {
       // if(isset($_POST['save'])){
@@ -43,7 +44,7 @@
       //     //
       //   }
       // }
-        include('database.php');
+        require('database.php');
         //CODE HERE
         $title      = $_POST["title"];
         $type       = $_POST["type"];
@@ -56,6 +57,8 @@
                         VALUES ('$title', '$type','$priority','$status','$date','$description')";
                         
         $result = mysqli_query($conn,$sql);
+        // echo($result); return boolen
+        exit();
 
         $_SESSION['message'] = "Task has been added successfully !";
         header('location: index.php');
@@ -101,10 +104,16 @@
 
         //CODE HERE
         //SQL DELETE
+
         $sql="DELETE FROM `tasks` WHERE id = $id ";
         $result = mysqli_query($conn,$sql);
+        // if($result){
+        //   echo "<script>alert('Record'delect from data)</script>";
+        // }else{
+        //   echo "<><>";
+        // }
         $_SESSION['message'] = "Task has been deleted successfully !";
-		header('location: index.php');
+		    header('location: index.php');
     }
 
 ?>

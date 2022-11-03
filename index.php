@@ -46,10 +46,10 @@
 			</div> 
 			<?php if (isset($_SESSION['message'])): ?>
 				<div class="alert alert-green alert-dismissible fade show">
-				<strong>Success!</strong>
+					<strong>Success!</strong>
 					<?php 
 						echo $_SESSION['message']; 
-						unset($_SESSION['message']);
+						unset($_SESSION['message']);// vide session apres load page
 					?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert"></span>
 				</div>
@@ -83,8 +83,8 @@
 													<div>
 														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end w-30px" >
 														<i class="fa-solid fa-pen-to-square "></i></a>
-														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end w-30px" id="supprimer">
-														<i class="fa-solid fa-trash fa-sm " id="supprimerIcon"  ></i></a>
+														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end w-30px" id="supprimer" onclick=" return deleteTask()">
+														<i class="fa-solid fa-trash fa-sm " id="supprimerIcon"></i></a>
 													</div>
 													</div>
 													<div class="">
@@ -128,10 +128,10 @@
 													<div class="d-flex justify-content-between">
 													<div class="fw-bolder "><?php echo $task["title"] ?></div>
 													<div>
-														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end" >
+														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end w-30px" >
 														<i class="fa-solid fa-pen-to-square "></i></a>
-														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end" id="supprimer">
-														<i class="fa-solid fa-trash fa-sm " id="supprimerIcon"  ></i></a>
+														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end w-30px" id="supprimer" onclick=" return deleteTask()">
+														<i class="fa-solid fa-trash fa-sm" id = "supprimerIcon"  ></i></a>
 													</div>
 													</div>
 													<div class="">
@@ -177,9 +177,9 @@
 													<div class="d-flex justify-content-between">
 													<div class="fw-bolder "><?php echo $task["title"] ?></div>
 													<div>
-														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end" >
+														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end w-30px" >
 														<i class="fa-solid fa-pen-to-square "></i></a>
-														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end" id="supprimer">
+														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end w-30px" id="supprimer" onclick=" return deleteTask()"a>
 														<i class="fa-solid fa-trash fa-sm " id="supprimerIcon"  ></i></a>
 													</div>
 													</div>
@@ -279,14 +279,16 @@
 	<script src="assets/js/app.min.js"></script>
 	<!-- confirmation delete -->
 	<script>
-		document.getElementById("supprimerIcon").addEventListener("click",()=>{
-			if(confirm("are you sure")){
-				document.getElementById("supprimer").click();
+		// document.getElementById("supprimerIcon").addEventListener("click",()=>{
+			// if(confirm("are you sure")){
+				// document.getElementById("supprimer").click();
+			// }
+			// })
+			function deleteTask(){
+				return confirm('are you sure you want to delete this record');
+
+
 			}
-			else{
-				
-			}
-			})
 	</script>
 
 	<!-- ================== END core-js ================== -->
