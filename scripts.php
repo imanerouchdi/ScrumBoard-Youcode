@@ -10,8 +10,13 @@
     if(isset($_POST['save']))        saveTask();
     if(isset($_POST['update']))      updateTask();
     // if(isset($_POST['delete']))      deleteTask();
-
-    
+    function counter($countStatus){
+      global $conn;
+      $sql = "SELECT * FROM tasks where status_id = $countStatus";
+      $result = mysqli_query($conn,$sql);
+      $res = mysqli_fetch_all($result,MYSQLI_ASSOC);
+      echo count($res);
+    }
     // $id = $_GET['id'];
     function getTasks($conn , $typeStatuses)
     {   
@@ -25,9 +30,10 @@
          if(mysqli_num_rows($result)>0){
             // return mysqli_query($conn,$sql) ;
             return $result;
-         }else{ 
-              echo '<div class="alert alert-warning text-center " role="alert"> There is not Data !!!! </div>'; }
-    }
+         }
+          else{ 
+               echo '<div class="alert alert-warning text-center " role="alert"> There is not Data !!!! </div>'; }
+            }
     function saveTask()
     {
       // if(isset($_POST['save'])){
@@ -90,8 +96,7 @@
             header('location: index.php');
            }
 
-    function deleteTask($id)
-    {
+    function deleteTask($id) {
       include('database.php');
 
         //CODE HERE

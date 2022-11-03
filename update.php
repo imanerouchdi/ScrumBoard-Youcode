@@ -22,7 +22,6 @@
         </head>
         <body>
 
-                        <!-- <section class="container"> -->
                         <form method="POST" action="scripts.php" id="form">
 						<div class="modal-body">
 							<div id="messageError" class="text-center text-danger"></div>
@@ -81,7 +80,6 @@
 						<div class="modal-footer">
 							<button id="cancel" type="button" class="btn btn-light text-black border" data-bs-dismiss="modal">Cancel</button>
 							<button name="update" type="submit" class="btn btn-warning" >Update</button>
-							<!-- <input type="submit" value="save" name="save" class="btn btn-info"> -->
 						</div>
 					</form> 
                            

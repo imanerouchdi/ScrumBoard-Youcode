@@ -59,18 +59,16 @@
 					<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
 						<div class="panel-heading">
-							<h4 class="panel-title">To do (<span id="to-do-tasks-count">0</span>)</h4>
+							<h4 class="panel-title">To do <span id="to-do-tasks-count"></span></h4>
 							<div class="panel-heading-btn">
 								</div>
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="to-do-tasks">
 							<!-- TO DO TASKS HERE -->
 							<?php
-								//PHP CODE HERE
 								//DATA FROM getTasks() FUNCTION
-								 
-								$resultToDo = getTasks($conn , "To Do");  ?>
-								<?php
+								$resultToDo = getTasks($conn , "To Do"); 
+								
 								if (isset($resultToDo)) {
 									// return $resultToDo;
 								while($task =  mysqli_fetch_assoc($resultToDo)){ ?>
@@ -81,8 +79,11 @@
 												</div>
 												<div class="col-sm-11 text-start">
 													<div class="fw-bolder"><?php echo $task["title"] ?></div>
-													<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
-													<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
+													<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" >
+													<i class="fa-solid fa-pen-to-square"></i></a>
+													<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" id="supprimer">
+													<i class="fa-solid fa-trash " id="supprimerIcon"></i></a>
+													</a>
 							
 													<div class="">
 														<div class="">created in <?php echo $task["task_datetime"] ?></div>
@@ -96,7 +97,11 @@
 												</div>
 										</button>
 									<!-- </a> -->
-								<?php }} ?>
+								<?php }}{
+
+									// echo "<div class="alert alert-warning text-center " role="alert"> There is not Data !!!! </div>';";
+
+								} ?>
 						</div>
 					</div>
 				</div>
@@ -104,11 +109,9 @@
 					<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
 						<div class="panel-heading">
-							<h4 class="panel-title">In Progress (<span id="in-progress-tasks-count">0</span>)</h4>
+							<h4 class="panel-title">In Progress <span id="in-progress-tasks-count"></span></h4>
 							<div class="panel-heading-btn">
-								<a href="update.php" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
-								<a href="scripts.php" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
-							
+								
 							</div>
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="in-progress-tasks">
@@ -126,8 +129,9 @@
 												</div>
 												<div class="col-sm-11 text-start">
 													<div class="fw-bolder"><?php echo $task["title"] ?></div>
-													<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
-													<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
+													<a href="update.php?updateId=<?php echo $task['id']?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square w-100"></i></a>
+													<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" id="supprimer" ><i class="fa-solid fa-trash " id="supprimerIcon"></i></a>
+							
 													<div class="">
 														<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
 														<div class="text-Des" title=""><?php echo $task["description"]?></div>
@@ -139,7 +143,8 @@
 												</div>
 										</button>
 									<!-- </a> -->
-									<?php } }?>
+									<?php } }
+									?>
 						</div>
 					</div>
 				</div>
@@ -147,11 +152,11 @@
 				 	<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
 						<div class="panel-heading">
-							<h4 class="panel-title">Done (<span id="done-tasks-count">0</span>)</h4>
-							<div class="panel-heading-btn">
-								<a href="update.php" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
+							<h4 class="panel-title">Done <span id="done-tasks-count"></span></h4>
+							<!-- <div class="panel-heading-btn">
+								<a href="update.php" class="btn btn-xs btn-icon btn-warning " ><i class="fa-solid fa-pen-to-square "></i></a>
 								<a href="scripts.php" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
-							</div>
+							</div> -->
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="done-tasks">
 							<!-- DONE TASKS HERE -->
@@ -169,8 +174,10 @@
 										</div>
 										<div class="col-sm-11 text-start">
 											<div class="fw-bolder"><?php echo $task["title"] ?></div>
-											<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square"></i></a>
-											<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
+											<div class="panel-heading-btn">
+												<a href="update.php?updateId=<?php echo $task['id']?>" class="btn btn-xs btn-icon btn-warning " ><i class="fa-solid fa-pen-to-square "></i></a>
+												<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" id="supprimer" ><i class="fa-solid fa-trash id="supprimerIcon""></i></a>
+											</div>
 												<div class="">
 													<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
 													<div class="text-Des" title=""><?php echo $task["description"]?></div>
@@ -189,18 +196,7 @@
 			</div>
 		</div>
 					
-					<div class="col-sm-12 col-md-6 col-lg-4   p-2 mb-5  rounded">
-						<div class="card"> 
-							<div class="card card-header bg-dark">
-								<h4 class="text-light mb-0 p-10px">Done (<span id="done-tasks-count">4</span>)</h4>  
-							</div>
-							<div class="d-flex flex-column shadow" id="done-tasks" name="done">
-								<!-- DONE TASKS HERE -->
-								 ?>
-							</div>
-						</div>
-					</div>
-				</div>
+					
 		<!-- END #content -->
 		<!-- BEGIN scroll-top-btn -->
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
@@ -227,19 +223,19 @@
 							<div class="mb-3 ">
 								<label class="col-form-label">Type</label>
 								<div class="form-check ms-3">
-									<input class="form-check-input" type="radio" name="type" id="feature" value="1" >
+									<input class="form-check-input" type="radio" name="type" id="feature" value="1" required>
 									<label class="form-check-label" for="flexRadioDefault1">Feature</label>
 								</div>
 								<div class="form-check ms-3">
-									<input class="form-check-input" type="radio" name="type" id="bug" value="2" >
+									<input class="form-check-input" type="radio" name="type" id="bug" value="2" required >
 									<label class="form-check-label" for="flexRadioDefault2">Bug</label>
 								</div>
 							</div>
 							<div class="mb-3">
 								<label for="Priority" class="col-form-label">Priority</label>
 								<select class="form-select" aria-label="Default select example" id="Priority" name="Priority">
-									<option selected value="0">Please select</option>
-									<option value="1">Low</option>
+									<option selected value="0" >Please select</option>
+									<option value="1" selected>Low</option>
 									<option value="2">Medium</option>
 									<option value="3">High</option>
 									<option value="4">Critical</option>
@@ -249,18 +245,18 @@
 								<label for="Status" class="col-form-label">Status</label>
 								<select class="form-select" aria-label="Default select example" id="Status"  name="Status">
 									<option selected >Please select</option>
-									<option value="1">To Do</option>
+									<option value="1" selected selected>To Do</option>
 									<option value="2">In Progress</option>
 									<option value="3">Done</option>
 								</select>
 							</div>
 							<div class="mb-3">
 								<label for="Date" class="col-form-label">Date</label>
-								<input type="date" class="form-control" id="Date" name="Date">
+								<input type="date" class="form-control" id="Date" name="Date" required>
 							</div>
 							<div class="mb-3">
 								<label for="desc" class="col-form-label">Description</label>
-								<textarea class="form-control" id="desc" name="description" require></textarea>
+								<textarea class="form-control" id="desc" name="description" required></textarea >
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -279,6 +275,13 @@
 	<!-- <script src="assets/js/app.js"></script> -->
 	<script src="assets/js/vendor.min.js"></script>
 	<script src="assets/js/app.min.js"></script>
+	<script>
+		document.getElementById("supprimerIcon").addEventListener("click",()=>{
+			if(confirm("are you sure"))
+			document.getElementById("supprimer").click();
+		})
+	</script>
+
 	<!-- ================== END core-js ================== -->
 </body>
 </html>
