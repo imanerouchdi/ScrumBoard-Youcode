@@ -12,7 +12,7 @@
     // if(isset($_POST['delete']))      deleteTask();
     function counter($countStatus){
       global $conn;
-      $sql = "SELECT * FROM tasks where status_id = $countStatus";
+      $sql = "SELECT * FROM tasks where id_status = $countStatus";
       $result = mysqli_query($conn,$sql);
       $res = mysqli_fetch_all($result,MYSQLI_ASSOC);
       echo count($res);
@@ -108,3 +108,4 @@
     }
 
 ?>
+

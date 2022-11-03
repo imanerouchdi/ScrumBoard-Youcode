@@ -59,7 +59,7 @@
 					<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
 						<div class="panel-heading">
-							<h4 class="panel-title">To do <span id="to-do-tasks-count"></span></h4>
+							<h4 class="panel-title">To do <span id="to-do-tasks-count">(<?= counter(1);?>)</span></h4>
 							<div class="panel-heading-btn">
 								</div>
 						</div>
@@ -77,14 +77,16 @@
 												<div class="col-sm-1 pe-2">
 													<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
 												</div>
-												<div class="col-sm-11 text-start">
-													<div class="fw-bolder"><?php echo $task["title"] ?></div>
-													<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning" >
-													<i class="fa-solid fa-pen-to-square"></i></a>
-													<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" id="supprimer">
-													<i class="fa-solid fa-trash " id="supprimerIcon"></i></a>
-													</a>
-							
+												<div class="col-sm-11 text-start ">
+													<div class="d-flex justify-content-between">
+													<div class="fw-bolder "><?php echo $task["title"] ?></div>
+													<div>
+														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end w-30px" >
+														<i class="fa-solid fa-pen-to-square "></i></a>
+														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end w-30px" id="supprimer">
+														<i class="fa-solid fa-trash fa-sm " id="supprimerIcon"  ></i></a>
+													</div>
+													</div>
 													<div class="">
 														<div class="">created in <?php echo $task["task_datetime"] ?></div>
 														<div class="text-Des" title=""><?php echo $task["description"]?></div>
@@ -92,15 +94,11 @@
 													<div class="">
 														<span class="btn btn-primary btn-sm"><?php echo $task["priorities_name"]?></span>
 														<span class="btn bg-light-600 btn-sm"><?php echo $task["type_name"]?></span>
-														<!-- <a href="scripts.php?id=<?php  echo $task["id"]?>"><span class="btn danger  btn-sm">delete</span></a> -->
 													</div>
 												</div>
 										</button>
 									<!-- </a> -->
 								<?php }}{
-
-									// echo "<div class="alert alert-warning text-center " role="alert"> There is not Data !!!! </div>';";
-
 								} ?>
 						</div>
 					</div>
@@ -109,7 +107,7 @@
 					<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
 						<div class="panel-heading">
-							<h4 class="panel-title">In Progress <span id="in-progress-tasks-count"></span></h4>
+							<h4 class="panel-title">In Progress <span id="in-progress-tasks-count">(<?= counter(2);?>)</span></h4>
 							<div class="panel-heading-btn">
 								
 							</div>
@@ -122,18 +120,22 @@
 							<?php
 								if (isset($resultInProgress)) {
 									 while($task = mysqli_fetch_assoc($resultInProgress)){ ?>
-									<!-- <a href="update.php?id=<?php echo $task['id'] ?>"> -->
-										<button class="border d-flex py-2 task w-100" >
+									 <button class="border d-flex py-2 task w-100">
 												<div class="col-sm-1 pe-2">
-													<i class="fa fa-circle-notch fa-lg pt-2 text-success"></i>
+													<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
 												</div>
-												<div class="col-sm-11 text-start">
-													<div class="fw-bolder"><?php echo $task["title"] ?></div>
-													<a href="update.php?updateId=<?php echo $task['id']?>" class="btn btn-xs btn-icon btn-warning" ><i class="fa-solid fa-pen-to-square w-100"></i></a>
-													<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" id="supprimer" ><i class="fa-solid fa-trash " id="supprimerIcon"></i></a>
-							
+												<div class="col-sm-11 text-start ">
+													<div class="d-flex justify-content-between">
+													<div class="fw-bolder "><?php echo $task["title"] ?></div>
+													<div>
+														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end" >
+														<i class="fa-solid fa-pen-to-square "></i></a>
+														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end" id="supprimer">
+														<i class="fa-solid fa-trash fa-sm " id="supprimerIcon"  ></i></a>
+													</div>
+													</div>
 													<div class="">
-														<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
+														<div class="">created in <?php echo $task["task_datetime"] ?></div>
 														<div class="text-Des" title=""><?php echo $task["description"]?></div>
 													</div>
 													<div class="">
@@ -142,7 +144,6 @@
 													</div>
 												</div>
 										</button>
-									<!-- </a> -->
 									<?php } }
 									?>
 						</div>
@@ -152,7 +153,7 @@
 				 	<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
 						<div class="panel-heading">
-							<h4 class="panel-title">Done <span id="done-tasks-count"></span></h4>
+							<h4 class="panel-title">Done <span id="done-tasks-count">(<?= counter(3);?>)</span></h4>
 							<!-- <div class="panel-heading-btn">
 								<a href="update.php" class="btn btn-xs btn-icon btn-warning " ><i class="fa-solid fa-pen-to-square "></i></a>
 								<a href="scripts.php" class="btn btn-xs btn-icon btn-danger" ><i class="fa-solid fa-trash "></i></a>
@@ -166,29 +167,32 @@
 								$resultDone = getTasks($conn , "Done");  ?>
 								<?php 
 								if (isset($resultDone)) {
-								 while($task = mysqli_fetch_assoc($resultDone)){ ?>
-								<!-- <a href="update.php?id=<?php echo $task['id'] ?>" class="">	 -->
-									<button class="border d-flex py-2  w-100 task">
-										<div class="col-sm-1 pe-2">
-											<i class="fa-regular fa-circle-check fa-lg pt-2 text-success"></i>
-										</div>
-										<div class="col-sm-11 text-start">
-											<div class="fw-bolder"><?php echo $task["title"] ?></div>
-											<div class="panel-heading-btn">
-												<a href="update.php?updateId=<?php echo $task['id']?>" class="btn btn-xs btn-icon btn-warning " ><i class="fa-solid fa-pen-to-square "></i></a>
-												<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger" id="supprimer" ><i class="fa-solid fa-trash id="supprimerIcon""></i></a>
-											</div>
-												<div class="">
-													<div class="">#${cmp+1} created in <?php echo $task["task_datetime"] ?></div>
-													<div class="text-Des" title=""><?php echo $task["description"]?></div>
+								 while($task = mysqli_fetch_assoc($resultDone)){ ?> 
+								 <!-- associative array  -->
+								 <button class="border d-flex py-2 task w-100">
+												<div class="col-sm-1 pe-2">
+													<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
 												</div>
-												<div class="">
-													<span class="btn btn-primary btn-sm"><?php echo $task["priorities_name"]?></span>
-													<span class="btn bg-light-600 btn-sm"><?php echo $task["type_name"]?></span>
+												<div class="col-sm-11 text-start ">
+													<div class="d-flex justify-content-between">
+													<div class="fw-bolder "><?php echo $task["title"] ?></div>
+													<div>
+														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end" >
+														<i class="fa-solid fa-pen-to-square "></i></a>
+														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end" id="supprimer">
+														<i class="fa-solid fa-trash fa-sm " id="supprimerIcon"  ></i></a>
+													</div>
+													</div>
+													<div class="">
+														<div class="">created in <?php echo $task["task_datetime"] ?></div>
+														<div class="text-Des" title=""><?php echo $task["description"]?></div>
+													</div>
+													<div class="">
+														<span class="btn btn-primary btn-sm"><?php echo $task["priorities_name"]?></span>
+														<span class="btn bg-light-600 btn-sm"><?php echo $task["type_name"]?></span>
+													</div>
 												</div>
-											</div>
-									</button>
-								<!-- </a> -->
+										</button>
 								<?php } }?>
 						</div>
 					</div>
@@ -234,8 +238,8 @@
 							<div class="mb-3">
 								<label for="Priority" class="col-form-label">Priority</label>
 								<select class="form-select" aria-label="Default select example" id="Priority" name="Priority">
-									<option selected value="0" >Please select</option>
-									<option value="1" selected>Low</option>
+									<option selected disabled value="0" >Please select</option>
+									<option value="1" >Low</option>
 									<option value="2">Medium</option>
 									<option value="3">High</option>
 									<option value="4">Critical</option>
@@ -244,8 +248,8 @@
 							<div class="mb-3">
 								<label for="Status" class="col-form-label">Status</label>
 								<select class="form-select" aria-label="Default select example" id="Status"  name="Status">
-									<option selected >Please select</option>
-									<option value="1" selected selected>To Do</option>
+									<option selected disabled value="0" >Please select</option>
+									<option value="1">To Do</option>
 									<option value="2">In Progress</option>
 									<option value="3">Done</option>
 								</select>
@@ -261,10 +265,8 @@
 						</div>
 						<div class="modal-footer">
 							<button id="cancel" type="button" class="btn btn-light text-black border" data-bs-dismiss="modal">Cancel</button>
-							<button id="save" name="save"  type="submit" class="btn btn-primary" onclick="">Save</button>
-							<!-- <button id="update" type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="updateTask()" >Update</button>
-							<button id="delete" type="button" class="btn btn-danger"  data-bs-dismiss="modal" onclick="deleteTask()" >Delete</button> -->
-							<!-- <input type="submit" value="save" name="save" class="btn btn-info"> -->
+							<button id="save" name="save"  type="submit" class="btn btn-primary" >Save</button>
+							
 						</div>
 					</form>
 				</div>
@@ -275,11 +277,16 @@
 	<!-- <script src="assets/js/app.js"></script> -->
 	<script src="assets/js/vendor.min.js"></script>
 	<script src="assets/js/app.min.js"></script>
+	<!-- confirmation delete -->
 	<script>
 		document.getElementById("supprimerIcon").addEventListener("click",()=>{
-			if(confirm("are you sure"))
-			document.getElementById("supprimer").click();
-		})
+			if(confirm("are you sure")){
+				document.getElementById("supprimer").click();
+			}
+			else{
+				
+			}
+			})
 	</script>
 
 	<!-- ================== END core-js ================== -->
