@@ -28,10 +28,9 @@
 					<div class="mb-3">
 					<?php  $result = EditTask($id)  ;
 							$task = mysqli_fetch_assoc($result);
-					// var_dump($task);
 					?>
 						<label id="title-task" class="col-form-label">Title</label>
-						<input type="text" class="form-control" id="titre" name="title" required value="<?php echo $task["title"] ?>">
+						<input type="text" class="form-control" id="title" name="title" required value="<?php echo $task["title"] ?>">
 					</div>
 
 					<input class="d-none" type="text" value="<?php echo $task["id"] ?>" name="idTask">
@@ -79,7 +78,8 @@
 				</div>
 				<div class="modal-footer">
 					<button id="cancel" type="button" class="btn btn-light text-black border" data-bs-dismiss="modal">Cancel</button>
-					<button name="update" type="submit" class="btn btn-warning" >Update</button>
+					<button name="update" type="submit"  id="update" class="d-none" >Update</button>
+					<button name="update" type="button"   class="btn btn-warning" onclick="validFormUpDate()" >Update</button>
 				</div>
 			</form> 
                         <!-- </section> -->
@@ -89,6 +89,7 @@
 	<!-- <script src="assets/js/app.js"></script> -->
 	<script src="assets/js/vendor.min.js"></script>
 	<script src="assets/js/app.min.js"></script>
+	<script src="scripts.js"></script>
 	<!-- ================== END core-js ================== -->
 </body>
 </html>

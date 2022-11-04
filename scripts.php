@@ -6,7 +6,7 @@
     session_start();
 
     if(isset($_GET['id']))        deleteTask($_GET["id"]);
-    if(isset($_POST['save']))        saveTask();
+    if(!isset($_POST['save'])=="")        saveTask();
     if(isset($_POST['update']))      updateTask();
 
 
@@ -35,7 +35,7 @@
         require('database.php');
 
         //CODE HERE
-        $title      = $_POST["title"];
+        $title      = trim($_POST["title"]);
         $type       = $_POST["type"];
         $priority   = $_POST["Priority"];
         $status     = $_POST["Status"];

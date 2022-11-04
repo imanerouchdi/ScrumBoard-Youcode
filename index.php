@@ -57,83 +57,78 @@
 			<div class="row">
 			        <!--------------------------------------- div 1 ----------------------------------------------->
 					<div class="col-xl-4 col-lg-6">
-					<div class="panel panel-inverse">
-						<div class="panel-heading">
-							<h4 class="panel-title">To do <span id="to-do-tasks-count">(<?= counter(1);?>)</span></h4>
-							<div class="panel-heading-btn">
-								</div>
-						</div>
-						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="to-do-tasks">
-							<!-- TO DO TASKS HERE -->
-							<?php
-								//DATA FROM getTasks() FUNCTION
-								$resultToDo = getTasks($conn , "To Do"); 
-								
-								if (isset($resultToDo)) {
-									// return $resultToDo;
-								while($task =  mysqli_fetch_assoc($resultToDo)){ ?>
-									 <!-- <a href="update.php?id=<?php echo $task['id'] ?>">  -->
-										<button class="border d-flex py-2 task w-100">
-												<div class="col-sm-1 pe-2">
-													<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
-												</div>
-												<div class="col-sm-11 text-start ">
-													<div class="d-flex justify-content-between">
-													<div class="fw-bolder "><?php echo $task["title"] ?></div>
-													<div>
-														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end w-30px" >
-														<i class="fa-solid fa-pen-to-square "></i></a>
-														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end w-30px" id="supprimer" onclick=" return deleteTask()">
-														<i class="fa-solid fa-trash fa-sm " id="supprimerIcon"></i></a>
+						<div class="panel panel-inverse">
+							<div class="panel-heading">
+								<h4 class="panel-title">To do <span id="to-do-tasks-count">(<?= counter(1);?>)</span></h4>
+								<div class="panel-heading-btn"></div>
+							</div>
+							<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="to-do-tasks">
+								<!------------------------------------------------- TO DO TASKS HERE ------------------------------------------------->
+								<?php
+									//DATA FROM getTasks() FUNCTION
+									$resultToDo = getTasks($conn , "To Do"); 
+									
+									if (isset($resultToDo)) {
+										while($task =  mysqli_fetch_assoc($resultToDo)){ ?>
+											<button class="border d-flex py-2 task w-100">
+													<div class="col-sm-1 pe-2">
+														<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
 													</div>
+													<div class="col-sm-11 text-start ">
+														<div class="d-flex justify-content-between">
+														<div class="fw-bolder "><?php echo $task["title"] ?></div>
+														<div>
+															<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end w-30px" >
+															<i class="fa-solid fa-pen-to-square "></i></a>
+															<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end w-30px" id="supprimer" onclick=" return deleteTask()">
+															<i class="fa-solid fa-trash fa-sm " id="supprimerIcon"></i></a>
+														</div>
+														</div>
+														<div class="">
+															<div class="">created in <?php echo $task["task_datetime"] ?></div>
+															<div class="text-Des" title=""><?php echo $task["description"]?></div>
+														</div>
+														<div class="">
+															<span class="btn btn-primary btn-sm"><?php echo $task["priorities_name"]?></span>
+															<span class="btn bg-light-600 btn-sm"><?php echo $task["type_name"]?></span>
+														</div>
 													</div>
-													<div class="">
-														<div class="">created in <?php echo $task["task_datetime"] ?></div>
-														<div class="text-Des" title=""><?php echo $task["description"]?></div>
-													</div>
-													<div class="">
-														<span class="btn btn-primary btn-sm"><?php echo $task["priorities_name"]?></span>
-														<span class="btn bg-light-600 btn-sm"><?php echo $task["type_name"]?></span>
-													</div>
-												</div>
-										</button>
-									<!-- </a> -->
-								<?php }}{
-								} ?>
-						</div>
-					</div>
-				</div>
-				    <!-- -------------------------------------div 2 ---------------------------------------------- -->
-					<div class="col-xl-4 col-lg-6">
-					<div class="panel panel-inverse">
-						<div class="panel-heading">
-							<h4 class="panel-title">In Progress <span id="in-progress-tasks-count">(<?= counter(2);?>)</span></h4>
-							<div class="panel-heading-btn">
-								
+											</button>
+										<!-- </a> -->
+									<?php }}{
+									} ?>
 							</div>
 						</div>
-						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="in-progress-tasks">
-							<!-- IN PROGRESS TASKS HERE -->
-							<?php
-								$resultInProgress = getTasks($conn , "In Progress"); 
-								?>
-							<?php
-								if (isset($resultInProgress)) {
-									 while($task = mysqli_fetch_assoc($resultInProgress)){ ?>
-									 <button class="border d-flex py-2 task w-100">
-												<div class="col-sm-1 pe-2">
-													<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
-												</div>
-												<div class="col-sm-11 text-start ">
-													<div class="d-flex justify-content-between">
+					</div>
+				    <!-- -------------------------------------div 2 ---------------------------------------------- -->
+					<div class="col-xl-4 col-lg-6">
+						<div class="panel panel-inverse">
+							<div class="panel-heading">
+								<h4 class="panel-title">In Progress <span id="in-progress-tasks-count">(<?= counter(2);?>)</span></h4>
+								<div class="panel-heading-btn"></div>
+							</div>
+							<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="in-progress-tasks">
+								<!-- IN PROGRESS TASKS HERE -->
+								<?php
+									$resultInProgress = getTasks($conn , "In Progress"); 
+									?>
+								<?php
+									if (isset($resultInProgress)) {
+										while($task = mysqli_fetch_assoc($resultInProgress)){ ?>
+										<button class="border d-flex py-2 task w-100">
+											<div class="col-sm-1 pe-2">
+												<i class="fa-regular fa-circle-question fa-lg pt-2 text-success"></i>
+											</div>
+											<div class="col-sm-11 text-start ">
+												<div class="d-flex justify-content-between">
 													<div class="fw-bolder "><?php echo $task["title"] ?></div>
 													<div>
 														<a href="update.php?updateId=<?php echo $task['id'] ?>" class="btn btn-xs btn-icon btn-warning float-end w-30px" >
 														<i class="fa-solid fa-pen-to-square "></i></a>
 														<a href="scripts.php?id=<?php  echo $task['id']?>" class="btn btn-xs btn-icon btn-danger float-end w-30px" id="supprimer" onclick=" return deleteTask()">
-														<i class="fa-solid fa-trash fa-sm" id = "supprimerIcon"  ></i></a>
+														<i class="fa-solid fa-trash fa-sm"></i></a>
 													</div>
-													</div>
+												</div>
 													<div class="">
 														<div class="">created in <?php echo $task["task_datetime"] ?></div>
 														<div class="text-Des" title=""><?php echo $task["description"]?></div>
@@ -141,14 +136,14 @@
 													<div class="">
 														<span class="btn btn-primary btn-sm"><?php echo $task["priorities_name"]?></span>
 														<span class="btn bg-light-600 btn-sm"><?php echo $task["type_name"]?></span>
+														</div>
 													</div>
-												</div>
 										</button>
-									<?php } }
-									?>
+									<?php }
+								}?>
+							</div>
 						</div>
 					</div>
-				</div>
 				 	<!--  -------------------------------------div 3-------------------------------- -->
 				 	<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
@@ -160,7 +155,7 @@
 							</div> -->
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="done-tasks">
-							<!-- DONE TASKS HERE -->
+							<!-------------------------------------------------- DONE TASKS HERE ------------------------------------------------------------>
 							<?php
 								//PHP CODE HERE
 								//DATA FROM getTasks() FUNCTION  
@@ -222,16 +217,16 @@
 							<div id="messageError" class="text-center text-danger"></div>
 							<div class="mb-3">
 								<label id="title-task" class="col-form-label">Title</label>
-								<input type="text" class="form-control" id="titre" name="title" required>
+								<input type="text" class="form-control" id="title" name="title" >
 							</div>
 							<div class="mb-3 ">
 								<label class="col-form-label">Type</label>
 								<div class="form-check ms-3">
-									<input class="form-check-input" type="radio" name="type" id="feature" value="1" required>
+									<input class="form-check-input" type="radio" name="type" id="feature" value="1" checked>
 									<label class="form-check-label" for="flexRadioDefault1">Feature</label>
 								</div>
 								<div class="form-check ms-3">
-									<input class="form-check-input" type="radio" name="type" id="bug" value="2" required >
+									<input class="form-check-input" type="radio" name="type" id="bug" value="2"  >
 									<label class="form-check-label" for="flexRadioDefault2">Bug</label>
 								</div>
 							</div>
@@ -256,16 +251,18 @@
 							</div>
 							<div class="mb-3">
 								<label for="Date" class="col-form-label">Date</label>
-								<input type="date" class="form-control" id="Date" name="Date" required>
+								<input type="date" class="form-control" id="Date" name="Date" >
 							</div>
 							<div class="mb-3">
 								<label for="desc" class="col-form-label">Description</label>
-								<textarea class="form-control" id="desc" name="description" required></textarea >
+								<textarea class="form-control" id="desc" name="description" ></textarea >
 							</div>
 						</div>
 						<div class="modal-footer">
 							<button id="cancel" type="button" class="btn btn-light text-black border" data-bs-dismiss="modal">Cancel</button>
-							<button id="save" name="save"  type="submit" class="btn btn-primary" >Save</button>
+							<button id="save" name="save"  type="submit" class="d-none" >Save</button>
+							<button type="button" class="btn btn-primary"  onclick="validFormSAve()">Save</button>
+
 							
 						</div>
 					</form>
@@ -277,18 +274,13 @@
 	<!-- <script src="assets/js/app.js"></script> -->
 	<script src="assets/js/vendor.min.js"></script>
 	<script src="assets/js/app.min.js"></script>
+	<script src="scripts.js"></script>
 	<!-- confirmation delete -->
 	<script>
-		// document.getElementById("supprimerIcon").addEventListener("click",()=>{
-			// if(confirm("are you sure")){
-				// document.getElementById("supprimer").click();
-			// }
-			// })
+
 			function deleteTask(){
 				return confirm('are you sure you want to delete this record');
-
-
-			}
+		}
 	</script>
 
 	<!-- ================== END core-js ================== -->
